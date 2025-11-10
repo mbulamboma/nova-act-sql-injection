@@ -1,4 +1,4 @@
-# 🔐 les Tests SQL Injection avec Nova Act 
+# 🔐 Tests SQL Injection avec Nova Act 
  
 > **Comment j'ai construit un agent intelligent qui teste automatiquement les vulnérabilités SQL Injection en simulant un attaquant réel**
 
