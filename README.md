@@ -238,17 +238,7 @@ Accédez à : http://localhost:5000
 **Credentials par défaut :**
 - Username: `admin` / Password: `password123`
 - Username: `john` / Password: `john2024`
-
-### Option 2 : WebGoat (OWASP)
-
-WebGoat est la plateforme d'entraînement officielle de l'OWASP :
-
-```bash
-docker run -p 8080:8080 -p 9090:9090 webgoat/webgoat
-```
-
-Attendez le message "WebGoat started on port 8080" avant de lancer les tests.
-
+ 
 ---
 
 ## 📊 Résultats : Ce Que Vous Obtenez
