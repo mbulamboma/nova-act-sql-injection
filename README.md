@@ -243,7 +243,7 @@ Accédez à : http://localhost:5000
 
 ## 🔬 Cas d'Usage Réels
 
-### 1. **CI/CD Integration**
+**CI/CD Integration**
 
 Intégrez l'agent dans votre pipeline pour tester chaque commit :
 
@@ -264,19 +264,7 @@ jobs:
           NOVA_ACT_API_KEY: ${{ secrets.NOVA_ACT_API_KEY }}
 ```
 
-### 2. **Formation en Cybersécurité**
-
-Utilisez l'agent pour former vos équipes :
-- Démonstrations live des vulnérabilités
-- Ateliers pratiques sur les payloads
-- Compréhension des techniques d'attaque
-
-### 3. **Bug Bounty Reconnaissance**
-
-Automatisez les tests préliminaires avant les tests manuels :
-- Scan rapide des formulaires de login
-- Détection des low-hanging fruits
-- Rapport structuré pour investigation approfondie
+  
 
 ---
 
