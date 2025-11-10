@@ -14,10 +14,7 @@ print("API Key loaded:", nova_api_key is not None)
 
 def test_sql_injection():
     """Tester les vulnérabilités SQL Injection avec Nova Act - Payloads gérés dans le prompt"""
-    print("\n" + "="*60)
-    print("=== TESTS SQL INJECTION SUR http://localhost:5000 ===")
-    print("="*60 + "\n")
-    
+     
     with NovaAct(
         starting_page="http://localhost:5000",
         ignore_https_errors=True,
@@ -86,31 +83,15 @@ def test_sql_injection():
         print("="*60)
 
 def main():
-    """Fonction principale - Exécute tous les tests"""
-    print("\n" + "="*60)
-    print("🔐 TESTS DE SÉCURITÉ - SECUREBANK")
-    print("="*60)
-    print("\nCible: http://localhost:5000")
-    print("Tests: SQL Injection uniquement")
-    print("Mode: Payloads gérés par Nova Act\n")
-    
+    """Fonction principale - Exécute tous les tests"""  
     try:
         # Tests SQL Injection uniquement
         print("▶️  Lancement des tests SQL Injection...")
         test_sql_injection()
-        
-        # Rapport global final
-        print("\n" + "="*60)
-        print("✅ TOUS LES TESTS TERMINÉS")
-        print("="*60)
+        # Rapport global final 
         print("\n💡 Nova Act a géré tous les payloads et généré les rapports complets.")
         
     except Exception as e:
-        print(f"\n❌ Erreur globale: {e}")
-        print("\nAssurez-vous que:")
-        print("1. L'application SecureBank tourne sur http://localhost:5000")
-        print("2. Docker container 'vulnerable-webapp' est démarré")
-        print("3. Votre clé API Nova Act est valide")
-
+        print(f"\n Erreur globale: {e}") 
 if __name__ == "__main__":
     main()
