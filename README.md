@@ -1,7 +1,5 @@
-# 🔐 Automatiser les Tests SQL Injection avec Nova Act : Un Agent Intelligent au Service de la Cybersécurité
-
-![Security Testing](https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&h=400&fit=crop)
-
+# 🔐 les Tests SQL Injection avec Nova Act 
+ 
 > **Comment j'ai construit un agent intelligent qui teste automatiquement les vulnérabilités SQL Injection en simulant un attaquant réel**
 
 ---
