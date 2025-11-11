@@ -46,7 +46,7 @@ def demo_verification():
     """Demo setup verification"""
     print("="*80)
     print("STEP 1: SETUP VERIFICATION")
-    print("="*80)
+    print("="*80)   
     
     run_command(
         "python verify_setup.py",
