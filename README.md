@@ -519,5 +519,73 @@ Développé avec ❤️ pour la communauté cybersécurité.
 
 ---
 
+## 🚀 NOUVEAU : Framework Avancé SQL Injection (v2.0)
+
+### 🎯 Tests Multi-Types et Multi-SGBD
+
+Le projet inclut maintenant `advanced_sql_injection_test.py` - un framework avancé qui teste **4 types** d'injections SQL sur **5 SGBD** différents :
+
+**Types d'injections testées :**
+- 🎯 **Union-based** - Extraction directe de données
+- 🕵️ **Boolean Blind** - Inférence par vrai/faux
+- ⏱️ **Time-based** - Détection par délais
+- 📡 **Out-of-band** - Exfiltration par canaux externes
+
+**SGBD supportés :**
+- 🐬 **MySQL/MariaDB**
+- 🐘 **PostgreSQL**  
+- 🦅 **Oracle**
+- 🔷 **Microsoft SQL Server**
+- 📦 **SQLite**
+
+### Utilisation Rapide
+
+```powershell
+# Tests complets (tous types et SGBD)
+python advanced_sql_injection_test.py
+
+# Tests spécifiques
+python advanced_sql_injection_test.py --union_only
+python advanced_sql_injection_test.py --blind_only --headless
+python advanced_sql_injection_test.py --time_only --target_url http://example.com/login
+
+# Vérification du setup
+python verify_setup.py
+
+# Démonstration guidée
+python demo_advanced_tests.py
+```
+
+### 📊 Nouveaux Rapports JSON
+
+```json
+{
+  "timestamp": "2025-11-11T10:30:00",
+  "target_url": "http://localhost:5000", 
+  "tests_performed": {
+    "union_based": [...],
+    "boolean_blind": [...],
+    "time_based": [...],
+    "out_of_band": [...]
+  },
+  "summary": {
+    "total_tests": 85,
+    "vulnerabilities_found": 12,
+    "success_rate": 14.1
+  }
+}
+```
+
+### 📚 Documentation Complète
+
+Consultez `ADVANCED_SQL_INJECTION_GUIDE.md` pour :
+- Guide détaillé de configuration
+- Explication de chaque type d'injection
+- Payloads par SGBD
+- Dépannage et optimisation
+- Exemples d'intégration CI/CD
+
+---
+
 *Article publié le 10 novembre 2025*  
 *Tags: #cybersecurity #automation #testing #python #nova-act #sql-injection #appsec #devsecops*
