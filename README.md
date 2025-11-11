@@ -1,4 +1,4 @@
-# 🔐 les Tests SQL Injection avec Nova Act 
+# 🔐 Tests SQL Injection avec Nova Act 
  
 > **Comment j'ai construit un agent intelligent qui teste automatiquement les vulnérabilités SQL Injection en simulant un attaquant réel**
 
@@ -238,76 +238,12 @@ Accédez à : http://localhost:5000
 **Credentials par défaut :**
 - Username: `admin` / Password: `password123`
 - Username: `john` / Password: `john2024`
-
-### Option 2 : WebGoat (OWASP)
-
-WebGoat est la plateforme d'entraînement officielle de l'OWASP :
-
-```bash
-docker run -p 8080:8080 -p 9090:9090 webgoat/webgoat
-```
-
-Attendez le message "WebGoat started on port 8080" avant de lancer les tests.
-
----
-
-## 📊 Résultats : Ce Que Vous Obtenez
-
-L'agent génère un **rapport détaillé en console** indiquant pour chaque payload s'il a réussi à exploiter une vulnérabilité SQL Injection.
-
-### Console Output en Temps Réel
-
-```
-================================================================
-=== TESTS SQL INJECTION SUR http://localhost:5000 ===
-================================================================
-
-📋 RAPPORT SQL INJECTION COMPLET:
-
-Payload 1: VULNÉRABLE - ' OR '1'='1
-✅ Le site EST vulnérable à ce payload
-→ Authentification bypassée avec succès
-→ Utilisateur accédé: admin
-→ Dashboard atteint: http://localhost:5000/dashboard
-
-Payload 2: VULNÉRABLE - admin' --
-✅ Le site EST vulnérable à ce payload
-→ Authentification bypassée avec succès
-→ Utilisateur accédé: admin
-→ Dashboard atteint: http://localhost:5000/dashboard
-
-Payload 3: PAS VULNÉRABLE - ' OR '1'='1' --
-❌ Échec - Login refusé
-→ Message d'erreur: "Invalid username or password"
-
-================================================================
-✅ TOUS LES TESTS TERMINÉS
-================================================================
-
-💡 Résumé:
-- Total de payloads testés: 3
-- Vulnérabilités détectées: 2
-- Taux de vulnérabilité: 66.7%
-- Application VULNÉRABLE aux attaques SQL Injection
-```
-
-### Format des Messages
-
-Chaque payload testé génère un message structuré :
-
-- **✅ VULNÉRABLE** : Le payload a réussi à bypasser l'authentification
-  - Détails de l'utilisateur accédé
-  - Confirmation d'accès au dashboard
-  
-- **❌ PAS VULNÉRABLE** : Le payload a été bloqué
-  - Message d'erreur retourné
-  - Raison de l'échec
-
+ 
 ---
 
 ## 🔬 Cas d'Usage Réels
 
-### 1. **CI/CD Integration**
+**CI/CD Integration**
 
 Intégrez l'agent dans votre pipeline pour tester chaque commit :
 
@@ -328,126 +264,6 @@ jobs:
           NOVA_ACT_API_KEY: ${{ secrets.NOVA_ACT_API_KEY }}
 ```
 
-### 2. **Formation en Cybersécurité**
-
-Utilisez l'agent pour former vos équipes :
-- Démonstrations live des vulnérabilités
-- Ateliers pratiques sur les payloads
-- Compréhension des techniques d'attaque
-
-### 3. **Bug Bounty Reconnaissance**
-
-Automatisez les tests préliminaires avant les tests manuels :
-- Scan rapide des formulaires de login
-- Détection des low-hanging fruits
-- Rapport structuré pour investigation approfondie
-
----
-
-## 🛡️ Sécurité et Éthique
-
-### ⚠️ AVERTISSEMENT IMPORTANT
-
-Cet outil est destiné **EXCLUSIVEMENT** à :
-- ✅ Vos propres applications
-- ✅ Environnements de test autorisés
-- ✅ Formation et éducation
-- ✅ Bug bounty programs avec autorisation
-
-**🚫 INTERDIT sur des applications tierces sans autorisation écrite explicite.**
-
-### Utilisation Responsable
-
-```python
-# ✅ BON USAGE
-# Test de votre propre application
-python nova-xss-sql.py --target_url http://localhost:5000
-
-# ❌ MAUVAIS USAGE
-# Test d'un site web sans permission
-# python nova-xss-sql.py --target_url https://exemple-non-autorise.com
-```
-
----
-
-## 🧠 Ce Que J'ai Appris
-
-### Leçons Techniques
-
-1. **Nova Act est puissant mais capricieux**
-   - Fonctionne parfaitement en script Python standalone
-   - Incompatible avec Jupyter notebooks par défaut (asyncio conflicts)
-   - Solution : `nest_asyncio.apply()`
-
-2. **Les payloads doivent être testés en isolation**
-   - Certains payloads peuvent "contaminer" l'état du navigateur
-   - Navigation à la page de logout entre chaque test est cruciale
-
-3. **L'analyse des résultats est plus complexe qu'il n'y paraît**
-   - Détecter une SQL Injection ne se limite pas à voir une erreur SQL
-   - Les applications modernes utilisent des ORM et des WAF (Web Application Firewalls)
-   - L'absence d'erreur ne signifie pas l'absence de vulnérabilité (blind SQL injection)
-
-### Défis Rencontrés
-
-**Problème 1 : Gestion des Sessions**
-```python
-# Avant (bug) : L'agent restait connecté entre les tests
-for payload in payloads:
-    test_login(payload)
-
-# Après (fix) : Logout explicite entre chaque test
-for payload in payloads:
-    test_login(payload)
-    nova.act("Navigate to http://localhost:5000/logout")
-```
-
-**Problème 2 : Timeouts et Erreurs Réseau**
-```python
-# Solution : Retry logic avec backoff exponentiel
-def test_with_retry(payload, max_retries=3):
-    for attempt in range(max_retries):
-        try:
-            return test_login(payload)
-        except Exception as e:
-            if attempt == max_retries - 1:
-                raise
-            time.sleep(2 ** attempt)
-```
-
----
-
-## 🚧 Roadmap : Prochaines Fonctionnalités
-
-### Version 2.0 (En Développement)
-
-- [ ] **Support de plus de vulnérabilités**
-  - NoSQL Injection (MongoDB, CouchDB)
-  - Blind SQL Injection (time-based, boolean-based)
-  - LDAP Injection
-  - ORM Injection
-
-- [ ] **Détection avancée**
-  - Time-based blind SQL injection
-  - Error-based SQL injection
-  - Out-of-band SQL injection (DNS exfiltration)
-
-- [ ] **Machine Learning pour l'analyse**
-  - Détection automatique de nouvelles vulnérabilités
-  - Scoring de gravité intelligent
-
-- [ ] **Interface Web Dashboard**
-  - Visualisation des résultats en temps réel
-  - Historique des scans
-  - Comparaison entre versions
-
-- [ ] **Amélioration du Reporting**
-  - Export JSON des résultats
-  - Export CSV pour Excel
-  - Génération de rapports PDF
-  - Intégration Slack/Discord pour notifications
-
----
 
 ## 🤝 Contribuer
 
@@ -469,22 +285,6 @@ Ce projet est open-source ! Vos contributions sont les bienvenues :
 
 ---
 
-## 📚 Ressources et Références
-
-### Pour Aller Plus Loin
-
-- 📖 [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- 🔐 [Nova Act Documentation](https://nova.amazon.com/act)
-- 🎓 [PortSwigger Web Security Academy](https://portswigger.net/web-security)
-- 🧪 [WebGoat Project](https://github.com/WebGoat/WebGoat)
-
-### Articles Recommandés
-
-- *Understanding SQL Injection* - OWASP
-- *Cross-Site Scripting (XSS) Attack Tutorial* - PortSwigger
-- *Automated Security Testing Best Practices* - SANS Institute
-
----
 
 ## 🎬 Conclusion
 
